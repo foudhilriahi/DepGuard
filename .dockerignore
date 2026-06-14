@@ -1,0 +1,7 @@
+node_modules
+.git
+.github
+dist
+coverage
+.depguard-cache.sqlite
+npm-debug.log*

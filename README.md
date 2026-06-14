@@ -1,46 +1,121 @@
 # DepGuard MCP Server
 
-DepGuard is a production-focused MCP server that checks npm dependency risk using:
+DepGuard is an MCP server for **real-time dependency safety checks while coding**.
 
-- **OSV** vulnerability data (`/query`, `/querybatch`)
-- **npm registry** deprecation metadata
-- **SQLite cache** with TTL to reduce repeated API calls
+It helps AI agents (in IDEs or CLI tools) verify package changes against:
 
-It runs over **stdio JSON-RPC**, so it works with MCP-enabled IDEs and CLI agents.
+- **OSV vulnerability database** (CVE/GHSA findings)
+- **npm deprecation metadata**
+- **local SQLite cache** (fast repeated checks)
 
-## Features
+DepGuard runs on MCP stdio, so it is easy to plug into modern AI coding tools.
 
-- `check_package` for single package checks
-- `check_packages_bulk` for batch checks (OSV batch endpoint)
-- `scan_package_json` to scan dependency blocks from `package.json`
-- `get_cached_result` for cache retrieval
-- Structured responses with `status`, `data`, `errors`, `meta`
-- Timeout + retry HTTP behavior
-- Risk scoring (`CRITICAL` / `HIGH` / `MEDIUM` / `LOW` / `SAFE`)
-- Partial-failure behavior (one bad package/API won’t kill whole bulk run)
+---
 
-## Install
+## What you get
+
+- `check_package` → check one package/version
+- `check_packages_bulk` → check many dependencies efficiently (OSV batch)
+- `scan_package_json` → scan all deps in a manifest
+- `get_cached_result` → quick cache retrieval
+- structured response envelope: `status`, `data`, `errors`, `meta`
+- severity and risk scoring (`CRITICAL | HIGH | MEDIUM | LOW | SAFE`)
+- timeout + retry networking
+- partial-failure behavior (best-effort results)
+
+---
+
+## Quick start (local)
 
 ```bash
 npm install
+npm run test
 npm run build
-```
-
-Run locally:
-
-```bash
 npm start
 ```
 
-Dev mode:
+For development:
 
 ```bash
 npm run dev
 ```
 
-## MCP Tool Contracts
+---
+
+## MCP client setup (copy/paste)
+
+Use the compiled server (`dist/index.js`) for reliability.
+
+```json
+{
+  "mcpServers": {
+    "depguard": {
+      "command": "node",
+      "args": ["/absolute/path/to/depguard/dist/index.js"],
+      "env": {
+        "CACHE_TTL_SECONDS": "86400",
+        "DEPGUARD_CACHE_PATH": "/absolute/path/to/depguard/.depguard-cache.sqlite",
+        "DEPGUARD_HTTP_TIMEOUT_MS": "7000",
+        "DEPGUARD_HTTP_RETRIES": "2",
+        "DEPGUARD_HTTP_RETRY_DELAY_MS": "250"
+      }
+    }
+  }
+}
+```
+
+> Put this JSON in your MCP-enabled tool’s config file (location differs by client).
+
+---
+
+## Use from Docker (no local Node required)
+
+Build image:
+
+```bash
+docker build -t depguard:local .
+```
+
+Run as stdio MCP server:
+
+```bash
+docker run --rm -i \
+  -e CACHE_TTL_SECONDS=86400 \
+  -e DEPGUARD_CACHE_PATH=/data/cache.sqlite \
+  -v depguard-cache:/data \
+  depguard:local
+```
+
+MCP config using Docker:
+
+```json
+{
+  "mcpServers": {
+    "depguard": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "-e",
+        "CACHE_TTL_SECONDS=86400",
+        "-e",
+        "DEPGUARD_CACHE_PATH=/data/cache.sqlite",
+        "-v",
+        "depguard-cache:/data",
+        "ghcr.io/<your-org>/depguard:latest"
+      ]
+    }
+  }
+}
+```
+
+---
+
+## Tool contracts
 
 ### `check_package`
+
 Input:
 
 ```json
@@ -52,6 +127,7 @@ Input:
 ```
 
 ### `check_packages_bulk`
+
 Input:
 
 ```json
@@ -65,6 +141,7 @@ Input:
 ```
 
 ### `scan_package_json`
+
 Input:
 
 ```json
@@ -76,6 +153,7 @@ Input:
 ```
 
 ### `get_cached_result`
+
 Input:
 
 ```json
@@ -85,9 +163,11 @@ Input:
 }
 ```
 
-## Response Shape
+---
 
-Every tool returns:
+## Response format
+
+All tools return:
 
 ```json
 {
@@ -103,7 +183,25 @@ Every tool returns:
 }
 ```
 
-## Configuration
+---
+
+## “Vibe coding” workflow (real-time dependency safety)
+
+Add this to your AI tool instructions/system prompt:
+
+> Before suggesting or applying dependency changes, call `check_package` (or `check_packages_bulk`).
+> If editing `package.json`, run `scan_package_json` after the change.
+> If risk is HIGH/CRITICAL or package is deprecated, propose safer alternatives or fixed versions.
+
+Suggested quick prompts:
+
+- "Before you update dependencies, run DepGuard checks and summarize risks."
+- "Scan this package.json and only keep changes that are SAFE/LOW risk."
+- "I’m vibe coding fast: auto-check every new npm dependency with DepGuard first."
+
+---
+
+## Production configuration
 
 Environment variables:
 
@@ -113,60 +211,45 @@ Environment variables:
 - `DEPGUARD_HTTP_RETRIES` (default: `2`)
 - `DEPGUARD_HTTP_RETRY_DELAY_MS` (default: `250`)
 
-## Use with MCP Clients
+Notes:
 
-Use compiled output for reliability.
+- Ranged versions (e.g. `^1.2.3`) are marked as `versionResolution: "range_unresolved"`.
+- For strict CI/policy usage, prefer exact lockfile versions.
 
-```json
-{
-  "mcpServers": {
-    "depguard": {
-      "command": "node",
-      "args": ["/absolute/path/to/depguard/dist/index.js"],
-      "env": {
-        "CACHE_TTL_SECONDS": "86400",
-        "DEPGUARD_CACHE_PATH": "/absolute/path/to/depguard/.depguard-cache.sqlite"
-      }
-    }
-  }
-}
-```
+---
 
-Restart your IDE/CLI client after updating config.
+## CI / release automation (included)
 
-## Validation
+This repo includes GitHub Actions workflows:
 
-```bash
-npm run test
-npm run build
-```
+- `.github/workflows/ci.yml`
+  - Runs test + build on pushes/PRs to `main`.
+- `.github/workflows/publish-npm.yml`
+  - Publishes to npm on release publish (or manual dispatch).
+- `.github/workflows/publish-docker.yml`
+  - Publishes Docker image to GHCR on release publish (or manual dispatch).
 
-## Publish to npm (optional)
+Required secrets:
+
+- `NPM_TOKEN` (for npm publish workflow)
+
+---
+
+## Publish to npm
 
 ```bash
 npm login
-npm run build
 npm run test
+npm run build
 npm publish --access public
 ```
 
-Then users can configure MCP using:
+---
 
-- `command`: `npx`
-- `args`: `["-y", "depguard", "depguard-mcp"]` (if you publish with this package name)
-
-## GitHub Upload
+## Push to GitHub
 
 ```bash
-git init
 git add .
-git commit -m "feat: production-ready depguard mcp server"
-git branch -M main
-git remote add origin <your-repo-url>
-git push -u origin main
+git commit -m "chore: add Docker + GitHub Actions release pipeline"
+git push
 ```
-
-## Notes
-
-- If a dependency version is a range (like `^1.2.3`), DepGuard marks it as `versionResolution: "range_unresolved"` unless exact version is provided.
-- For best accuracy in CI/policy checks, use exact versions from lockfiles.
