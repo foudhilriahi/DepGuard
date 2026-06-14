@@ -10,13 +10,15 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "docs"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "test": "vitest run",
+    "proof:generate": "node scripts/generate-proof.mjs",
     "prepublishOnly": "npm run build && npm run test"
   },
   "engines": {

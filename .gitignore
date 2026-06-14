@@ -1,5 +1,6 @@
 node_modules/
 dist/
 .depguard-cache.sqlite
+.proof-cache.sqlite
 *.log
 coverage/

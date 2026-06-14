@@ -1,0 +1,39 @@
+name: Generate Proof Artifact
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "15 4 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Generate proof artifact
+        run: npm run proof:generate
+
+      - name: Commit proof file if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: refresh live proof artifact"
+          file_pattern: docs/proof/latest.json

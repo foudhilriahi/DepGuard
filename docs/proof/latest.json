@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-06-14T13:09:30.526Z",
+  "source": "depguard/scripts/generate-proof.mjs",
+  "note": "Real network run using DepGuard core logic (no mocks).",
+  "input": {
+    "packages": [
+      {
+        "name": "lodash",
+        "version": "4.17.20"
+      },
+      {
+        "name": "minimist",
+        "version": "1.2.0"
+      },
+      {
+        "name": "react",
+        "version": "18.2.0"
+      }
+    ]
+  },
+  "result": {
+    "status": "ok",
+    "data": {
+      "results": [
+        {
+          "packageName": "lodash",
+          "version": "4.17.20",
+          "versionResolution": "exact",
+          "vulnerabilities": [
+            {
+              "id": "GHSA-29mw-wpgm-hmr9",
+              "aliases": [],
+              "summary": "No summary provided",
+              "severity": "UNKNOWN",
+              "cvss": null,
+              "fixedIn": null
+            },
+            {
+              "id": "GHSA-35jh-r3h4-6jhm",
+              "aliases": [],
+              "summary": "No summary provided",
+              "severity": "UNKNOWN",
+              "cvss": null,
+              "fixedIn": null
+            },
+            {
+              "id": "GHSA-f23m-r3pf-42rh",
+              "aliases": [],
+              "summary": "No summary provided",
+              "severity": "UNKNOWN",
+              "cvss": null,
+              "fixedIn": null
+            },
+            {
+              "id": "GHSA-r5fr-rjxr-66jc",
+              "aliases": [],
+              "summary": "No summary provided",
+              "severity": "UNKNOWN",
+              "cvss": null,
+              "fixedIn": null
+            },
+            {
+              "id": "GHSA-xxjr-mmjv-4gpg",
+              "aliases": [],
+              "summary": "No summary provided",
+              "severity": "UNKNOWN",
+              "cvss": null,
+              "fixedIn": null
+            }
+          ],
+          "vulnerabilityCount": 5,
+          "deprecated": false,
+          "hasIssues": true,
+          "riskLevel": "LOW",
+          "checkedAt": "2026-06-14T13:09:30.515Z",
+          "fromCache": false
+        },
+        {
+          "packageName": "minimist",
+          "version": "1.2.0",
+          "versionResolution": "exact",
+          "vulnerabilities": [
+            {
+              "id": "GHSA-vh95-rmgr-6w4m",
+              "aliases": [],
+              "summary": "No summary provided",
+              "severity": "UNKNOWN",
+              "cvss": null,
+              "fixedIn": null
+            },
+            {
+              "id": "GHSA-xvch-5gv4-984h",
+              "aliases": [],
+              "summary": "No summary provided",
+              "severity": "UNKNOWN",
+              "cvss": null,
+              "fixedIn": null
+            }
+          ],
+          "vulnerabilityCount": 2,
+          "deprecated": false,
+          "hasIssues": true,
+          "riskLevel": "LOW",
+          "checkedAt": "2026-06-14T13:09:30.521Z",
+          "fromCache": false
+        },
+        {
+          "packageName": "react",
+          "version": "18.2.0",
+          "versionResolution": "exact",
+          "vulnerabilities": [],
+          "vulnerabilityCount": 0,
+          "deprecated": false,
+          "hasIssues": false,
+          "riskLevel": "SAFE",
+          "checkedAt": "2026-06-14T13:09:30.522Z",
+          "fromCache": false
+        }
+      ],
+      "total": 3,
+      "withIssues": 2,
+      "riskSummary": {
+        "SAFE": 1,
+        "LOW": 2,
+        "MEDIUM": 0,
+        "HIGH": 0,
+        "CRITICAL": 0
+      },
+      "checkedAt": "2026-06-14T13:09:30.523Z"
+    },
+    "errors": [],
+    "meta": {
+      "cachedHits": 0,
+      "apiCalls": 4,
+      "durationMs": 3928,
+      "generatedAt": "2026-06-14T13:09:30.523Z"
+    }
+  }
+}
