@@ -1,5 +1,12 @@
 # DepGuard MCP Server
 
+[![CI](https://github.com/foudhilriahi/DepGuard/actions/workflows/ci.yml/badge.svg)](https://github.com/foudhilriahi/DepGuard/actions/workflows/ci.yml)
+[![Pages](https://github.com/foudhilriahi/DepGuard/actions/workflows/pages.yml/badge.svg)](https://github.com/foudhilriahi/DepGuard/actions/workflows/pages.yml)
+[![Proof Artifact](https://github.com/foudhilriahi/DepGuard/actions/workflows/proof-artifact.yml/badge.svg)](https://github.com/foudhilriahi/DepGuard/actions/workflows/proof-artifact.yml)
+[![Docker Publish](https://github.com/foudhilriahi/DepGuard/actions/workflows/publish-docker.yml/badge.svg)](https://github.com/foudhilriahi/DepGuard/actions/workflows/publish-docker.yml)
+[![GHCR](https://img.shields.io/badge/GHCR-package-blue?logo=docker)](https://github.com/foudhilriahi/DepGuard/pkgs/container/depguard)
+[![Live Proof](https://img.shields.io/badge/Live-Proof-success?logo=github)](https://foudhilriahi.github.io/DepGuard/)
+
 DepGuard is a production MCP server for real-time dependency risk checks while coding.
 
 It checks package updates against:
