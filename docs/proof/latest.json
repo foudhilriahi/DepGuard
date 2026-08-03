@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-02T06:44:59.138Z",
+  "generatedAt": "2026-08-03T07:45:34.936Z",
   "source": "depguard/scripts/generate-proof.mjs",
   "note": "Real network run using DepGuard core logic (no mocks).",
   "input": {
@@ -72,7 +72,7 @@
           "deprecated": false,
           "hasIssues": true,
           "riskLevel": "LOW",
-          "checkedAt": "2026-08-02T06:44:59.137Z",
+          "checkedAt": "2026-08-03T07:45:34.935Z",
           "fromCache": false
         },
         {
@@ -101,7 +101,7 @@
           "deprecated": false,
           "hasIssues": true,
           "riskLevel": "LOW",
-          "checkedAt": "2026-08-02T06:44:59.137Z",
+          "checkedAt": "2026-08-03T07:45:34.936Z",
           "fromCache": false
         },
         {
@@ -113,7 +113,7 @@
           "deprecated": false,
           "hasIssues": false,
           "riskLevel": "SAFE",
-          "checkedAt": "2026-08-02T06:44:59.138Z",
+          "checkedAt": "2026-08-03T07:45:34.936Z",
           "fromCache": false
         }
       ],
@@ -126,14 +126,14 @@
         "HIGH": 0,
         "CRITICAL": 0
       },
-      "checkedAt": "2026-08-02T06:44:59.138Z"
+      "checkedAt": "2026-08-03T07:45:34.936Z"
     },
     "errors": [],
     "meta": {
       "cachedHits": 0,
       "apiCalls": 4,
-      "durationMs": 529,
-      "generatedAt": "2026-08-02T06:44:59.138Z"
+      "durationMs": 585,
+      "generatedAt": "2026-08-03T07:45:34.936Z"
     }
   }
 }
