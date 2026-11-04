@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T11:55:07.130Z",
+  "generatedAt": "2026-11-04T12:06:48.874Z",
   "source": "depguard/scripts/generate-proof.mjs",
   "note": "Real network run using DepGuard core logic (no mocks).",
   "input": {
@@ -44,14 +44,6 @@
               "fixedIn": null
             },
             {
-              "id": "GHSA-f23m-r3pf-42rh",
-              "aliases": [],
-              "summary": "No summary provided",
-              "severity": "UNKNOWN",
-              "cvss": null,
-              "fixedIn": null
-            },
-            {
               "id": "GHSA-r5fr-rjxr-66jc",
               "aliases": [],
               "summary": "No summary provided",
@@ -68,11 +60,11 @@
               "fixedIn": null
             }
           ],
-          "vulnerabilityCount": 5,
+          "vulnerabilityCount": 4,
           "deprecated": false,
           "hasIssues": true,
           "riskLevel": "LOW",
-          "checkedAt": "2026-11-03T11:55:07.129Z",
+          "checkedAt": "2026-11-04T12:06:48.873Z",
           "fromCache": false
         },
         {
@@ -101,7 +93,7 @@
           "deprecated": false,
           "hasIssues": true,
           "riskLevel": "LOW",
-          "checkedAt": "2026-11-03T11:55:07.130Z",
+          "checkedAt": "2026-11-04T12:06:48.874Z",
           "fromCache": false
         },
         {
@@ -113,7 +105,7 @@
           "deprecated": false,
           "hasIssues": false,
           "riskLevel": "SAFE",
-          "checkedAt": "2026-11-03T11:55:07.130Z",
+          "checkedAt": "2026-11-04T12:06:48.874Z",
           "fromCache": false
         }
       ],
@@ -126,14 +118,14 @@
         "HIGH": 0,
         "CRITICAL": 0
       },
-      "checkedAt": "2026-11-03T11:55:07.130Z"
+      "checkedAt": "2026-11-04T12:06:48.874Z"
     },
     "errors": [],
     "meta": {
       "cachedHits": 0,
       "apiCalls": 4,
-      "durationMs": 668,
-      "generatedAt": "2026-11-03T11:55:07.130Z"
+      "durationMs": 654,
+      "generatedAt": "2026-11-04T12:06:48.874Z"
     }
   }
 }
